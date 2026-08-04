@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Qbonus incentive system',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Q</b>Bonus',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => 'Qbonus',
 
     /*
     |--------------------------------------------------------------------------
@@ -297,115 +297,104 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Menu-Configuration
     |
     */
+'menu' => [
 
-    'menu' => [
-        // Navbar items:
-        [
-            'type' => 'navbar-search',
-            'text' => 'search',
-            'topnav_right' => true,
-        ],
-        [
-            'type' => 'fullscreen-widget',
-            'topnav_right' => true,
-        ],
+    // ===== TOP NAVBAR =====
 
-        // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
-        [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
-        [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text' => 'multilevel',
-            'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-            ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
-        ],
+    [
+        'type' => 'navbar-search',
+        'text' => 'Search',
+        'topnav_right' => true,
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Menu Filters
-    |--------------------------------------------------------------------------
-    |
-    | Here we can modify the menu filters of the admin panel.
-    |
-    | For detailed instructions you can look the menu filters section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Menu-Configuration
-    |
-    */
+    [
+        'type' => 'fullscreen-widget',
+        'topnav_right' => true,
+    ],
 
+    // ===== SIDEBAR =====
+
+    [
+        'text' => 'Dashboard',
+        'url'  => '/dashboard',
+        'icon' => 'fas fa-fw fa-tachometer-alt',
+    ],
+
+    ['header' => 'MASTER DATA'],
+
+    [
+        'text' => 'Data Karyawan',
+        'url'  => '/employees',
+        'icon' => 'fas fa-users',
+    ],
+
+    [
+        'text' => 'Divisi',
+        'url'  => '#',
+        'icon' => 'fas fa-building',
+    ],
+
+    [
+        'text' => 'Jabatan',
+        'url'  => '#',
+        'icon' => 'fas fa-briefcase',
+    ],
+
+    [
+        'text' => 'User',
+        'url'  => '#',
+        'icon' => 'fas fa-user-cog',
+    ],
+
+    ['header' => 'BONUS'],
+
+    [
+        'text' => 'Upload Excel',
+        'url'  => '#',
+        'icon' => 'fas fa-file-excel',
+    ],
+
+    [
+        'text' => 'Validasi Bonus',
+        'url'  => '#',
+        'icon' => 'fas fa-check-circle',
+    ],
+
+    [
+        'text' => 'Approval Bonus',
+        'url'  => '#',
+        'icon' => 'fas fa-user-check',
+    ],
+
+    [
+        'text' => 'Slip Bonus',
+        'url'  => '#',
+        'icon' => 'fas fa-file-invoice-dollar',
+    ],
+
+    ['header' => 'LAPORAN'],
+
+    [
+        'text' => 'Bonus Bulanan',
+        'url'  => '#',
+        'icon' => 'fas fa-chart-bar',
+    ],
+
+    [
+        'text' => 'Rekap Bonus',
+        'url'  => '#',
+        'icon' => 'fas fa-file-alt',
+    ],
+
+    ['header' => 'PENGATURAN'],
+
+    [
+        'text' => 'Pengaturan',
+        'url'  => '#',
+        'icon' => 'fas fa-cogs',
+    ],
+
+],
     'filters' => [
         JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter::class,
