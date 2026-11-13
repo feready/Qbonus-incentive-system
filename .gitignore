@@ -25,3 +25,28 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+# Environment and secrets
+/.env
+/.env.*
+!/.env.example
+/auth.json
+
+# Private QBonus reference data
+/storage/app/private/references/
+/storage/app/private/bonus-submissions/
+/storage/app/private/uploads/
+/storage/app/bonus-submissions/
+/storage/app/uploads/
+
+# Runtime files
+/vendor/
+/node_modules/
+/storage/framework/
+/storage/logs/
+/storage/*.key
+/bootstrap/cache/*.php
+/public/storage
+
+# Local development
+/.idea/
+/.fleet/

@@ -1,82 +1,37 @@
 @extends('adminlte::page')
 
-@section('title', 'Data Karyawan')
+@section('title', 'Upload Insentif')
 
 @section('content_header')
-<h1>Data Karyawan</h1>
+<h1>Upload Insentif</h1>
 @stop
 
 @section('content')
 
 <div class="card">
-
-    <div class="card-header">
-
-        <h3 class="card-title">Master Karyawan</h3>
-
-    </div>
-
     <div class="card-body">
 
-        <table class="table table-bordered">
+        <h4>Upload File Excel Insentif</h4>
 
-            <thead>
+        <form>
 
-                <tr>
-                    <th>No</th>
-                    <th>NIK</th>
-                    <th>Nama</th>
-                    <th>Divisi</th>
-                    <th>Jabatan</th>
-                    <th>Status</th>
-                </tr>
+            <div class="mb-3">
+                <label class="form-label">
+                    Pilih File
+                </label>
 
-            </thead>
+                <input
+                    type="file"
+                    class="form-control">
+            </div>
 
-            <tbody>
+            <button class="btn btn-success">
+                Upload
+            </button>
 
-                @forelse($employees as $employee)
-
-                <tr>
-
-                    <td>{{ $loop->iteration }}</td>
-
-                    <td>{{ $employee->nik }}</td>
-
-                    <td>{{ $employee->name }}</td>
-
-                    <td>{{ $employee->division }}</td>
-
-                    <td>{{ $employee->position }}</td>
-
-                    <td>
-                        @if($employee->active)
-                            Aktif
-                        @else
-                            Non Aktif
-                        @endif
-                    </td>
-
-                </tr>
-
-                @empty
-
-                <tr>
-
-                    <td colspan="6" class="text-center">
-                        Belum ada data.
-                    </td>
-
-                </tr>
-
-                @endforelse
-
-            </tbody>
-
-        </table>
+        </form>
 
     </div>
-
 </div>
 
 @stop
