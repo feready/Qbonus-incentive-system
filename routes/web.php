@@ -75,12 +75,22 @@ Route::middleware(['auth'])->group(function () {
 
     // DOWNLOAD TEMPLATE EXCEL
 
-    Route::get('/download-template', function () {
-        return Storage::download(
-            'templates/templateqbonusv1.xlsx',
-            'QBonus_Template_v1.xlsx'
-        );
-    })->name('template.download');
+   Route::get('/download-template', function () {
+
+    $path = resource_path('templates/templateqbonusv1.xlsx');
+
+    abort_unless(
+        file_exists($path),
+        404,
+        'File template QBonus tidak ditemukan.'
+    );
+
+    return response()->download(
+        $path,
+        'QBonus_Template_v1.xlsx'
+    );
+
+})->name('template.download');
 
 // SUBMISSION SUMMARY
 
