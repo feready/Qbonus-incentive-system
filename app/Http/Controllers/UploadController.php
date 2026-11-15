@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\MasterFileVersion;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -30,17 +31,17 @@ class UploadController extends Controller
         BonusCalculator $calculator,
         ReferenceWorkbookService $reference
     ) {
-        $stores = $reference->getStores();
+    $activeVersion = $reference->getActiveVersion();
 
-        $request->validate([
-            'file' => 'required|file|mimes:xlsx,xls,xlsm',
+if (!$activeVersion) {
+    return back()->withErrors([
+        'file' => 'Belum ada Master File Insentif aktif. Hubungi Super Admin.',
+    ])->withInput();
+}
+// Pastikan store lookup dan kalkulator memakai referensi yang sama.
+$calculator->useReferenceWorkbook($reference);
 
-            'store_code' => [
-                'required',
-                Rule::in(array_column($stores, 'code')),
-            ],
-        ]);
-
+$stores = $reference->getStores();
         $store = collect($stores)->firstWhere(
             'code',
             (string) $request->store_code
@@ -170,6 +171,7 @@ class UploadController extends Controller
             // SIMPAN SUBMISSION DAN DETAIL KARYAWAN
             $submission = DB::transaction(function () use (
                 $request,
+                $activeVersion,
                 $file,
                 $filePath,
                 $store,
@@ -181,6 +183,7 @@ class UploadController extends Controller
             ) {
                 $submission = BonusSubmission::create([
                     'user_id' => auth()->id(),
+                    'master_file_version_id' => $activeVersion->id,
 
                     'original_filename' => $file->getClientOriginalName(),
                     'file_path' => $filePath,
@@ -210,6 +213,7 @@ class UploadController extends Controller
                     'calculation_summary' => $summary,
                     'results' => [],
                     'decision_status' => 'PENDING',
+                    
                 ]);
 
                 foreach ($validatedRows as &$validatedRow) {

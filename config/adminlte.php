@@ -198,47 +198,152 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'menu' => [
+'menu' => [
 
-        // TOP NAVBAR
+    // TOP NAVBAR
 
-        [
-            'type' => 'navbar-search',
-            'text' => 'Search',
-            'topnav_right' => true,
-        ],
+    [
+        'type' => 'navbar-search',
+        'text' => 'Search',
+        'topnav_right' => true,
+    ],
 
-        [
-            'type' => 'fullscreen-widget',
-            'topnav_right' => true,
-        ],
+    [
+        'type' => 'fullscreen-widget',
+        'topnav_right' => true,
+    ],
 
+    // ======================================
+    // MAIN MENU
+    // ======================================
 
-        // ======================================
-        // MAIN MENU
-        // ======================================
+    [
+        'header' => 'MAIN MENU',
+    ],
 
-        [
-            'header' => 'MAIN MENU',
-        ],
+    [
+        'text' => 'Dashboard',
+        'route' => 'dashboard',
+        'icon' => 'fas fa-fw fa-tachometer-alt',
+    ],
 
-        [
-            'text' => 'Dashboard',
-            'route' => 'dashboard',
-            'icon' => 'fas fa-fw fa-tachometer-alt',
-        ],
+    [
+        'text' => 'Admin Dashboard',
+        'route' => 'admin.dashboard',
+        'icon' => 'fas fa-fw fa-user-shield',
+        'can' => 'superadmin',
+    ],
 
-        [
-            'text' => 'Upload Insentif',
-            'route' => 'upload.index',
-            'icon' => 'fas fa-fw fa-file-excel',
-        ],
+    [
+        'text' => 'Upload Insentif',
+        'route' => 'upload.index',
+        'icon' => 'fas fa-fw fa-file-excel',
+    ],
 
-       [
-    'text' => 'Submission Summary',
-    'route' => 'bonus-submissions.index',
-    'icon' => 'fas fa-fw fa-clipboard-list',
+    [
+        'text' => 'Submission Summary',
+        'route' => 'bonus-submissions.index',
+        'icon' => 'fas fa-fw fa-clipboard-list',
+    ],
+
+    // ======================================
+    // MASTER DATA
+    // ======================================
+
+    [
+        'header' => 'MASTER DATA',
+    ],
+
+    [
+        'text' => 'Data Karyawan',
+        'route' => 'employees.index',
+        'icon' => 'fas fa-fw fa-users',
+    ],
+
+    [
+        'text' => 'Divisi',
+        'route' => 'divisions.index',
+        'icon' => 'fas fa-fw fa-building',
+    ],
+
+    // ======================================
+    // ADMINISTRATION
+    // KHUSUS SUPER ADMIN
+    // ======================================
+[
+    'text' => 'Master File Insentif',
+    'route' => 'admin.master-files.index',
+    'icon' => 'fas fa-fw fa-database',
+    'can' => 'superadmin',
 ],
+    [
+        'header' => 'ADMINISTRATION',
+        'can' => 'superadmin',
+    ],
+
+    [
+        'text' => 'User Management',
+        'route' => 'admin.users.index',
+        'icon' => 'fas fa-fw fa-users-cog',
+        'can' => 'superadmin',
+    ],
+
+    [
+        'text' => 'Login Activity',
+        'route' => 'admin.audit-logs.index',
+        'icon' => 'fas fa-fw fa-history',
+        'can' => 'superadmin',
+    ],
+
+],
+
+
+    // ======================================
+    // MASTER DATA
+    // ======================================
+
+    [
+        'header' => 'MASTER DATA',
+    ],
+
+    [
+        'text' => 'Data Karyawan',
+        'route' => 'employees.index',
+        'icon' => 'fas fa-fw fa-users',
+    ],
+
+    [
+        'text' => 'Divisi',
+        'route' => 'divisions.index',
+        'icon' => 'fas fa-fw fa-building',
+    ],
+
+    // ======================================
+    // ADMINISTRATION
+    // KHUSUS SUPER ADMIN
+    // ======================================
+
+    [
+        'header' => 'ADMINISTRATION',
+        'can' => 'superadmin',
+    ],
+
+    [
+        'text' => 'User Management',
+        'route' => 'admin.users.index',
+        'icon' => 'fas fa-fw fa-users-cog',
+        'can' => 'superadmin',
+    ],
+
+    [
+        'text' => 'Login Activity',
+        'route' => 'admin.audit-logs.index',
+        'icon' => 'fas fa-fw fa-history',
+        'can' => 'superadmin',
+    ],
+
+
+        
         // ======================================
         // MASTER DATA
         // ======================================
@@ -270,7 +375,25 @@ return [
 
         [
             'text' => 'User Management',
-            'url' => '#',
+            [
+    'text' => 'Admin Dashboard',
+    'route' => 'admin.dashboard',
+    'icon' => 'fas fa-fw fa-user-shield',
+    'can' => 'superadmin',
+],
+[
+    'text' => 'Login Activity',
+    'route' => 'admin.audit-logs.index',
+    'icon' => 'fas fa-fw fa-history',
+    'can' => 'superadmin',
+],
+
+            [
+    'text' => 'User Management',
+    'route' => 'admin.users.index',
+    'icon' => 'fas fa-fw fa-users-cog',
+    'can' => 'superadmin',
+],
             'icon' => 'fas fa-fw fa-user-cog',
         ],
 
@@ -280,7 +403,7 @@ return [
             'icon' => 'fas fa-fw fa-shield-alt',
         ],
 
-    ],
+
 
     /*
     |--------------------------------------------------------------------------

@@ -2,13 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
-
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\BonusSubmissionController;
-
+use App\Http\Controllers\Admin\AuditLogController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\MasterFileController;
 
 // PUBLIC ROUTES
 
@@ -16,6 +19,46 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// SUPER ADMIN ROUTES
+
+Route::middleware(['auth', 'superadmin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        // ADMIN DASHBOARD
+        Route::get(
+            '/dashboard',
+            [AdminDashboardController::class, 'index']
+        )->name('dashboard');
+
+        // USER MANAGEMENT
+        Route::resource('users', AdminUserController::class)
+            ->except(['show', 'destroy']);
+
+        // LOGIN ACTIVITY & AUDIT LOG
+        Route::get(
+            '/login-activity',
+            [AuditLogController::class, 'index']
+        )->name('audit-logs.index');
+        // MASTER FILE INSENTIF
+
+Route::get(
+    '/master-files',
+    [MasterFileController::class, 'index']
+)->name('master-files.index');
+
+Route::post(
+    '/master-files',
+    [MasterFileController::class, 'store']
+)->name('master-files.store');
+
+Route::post(
+    '/master-files/{masterFileVersion}/activate',
+    [MasterFileController::class, 'activate']
+)->name('master-files.activate');
+
+    });
 
 // AUTHENTICATED ROUTES
 
@@ -101,11 +144,11 @@ Route::get(
 });
 
 
-// DASHBOARD
+// USER DASHBOARD
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+Route::get(
+    '/dashboard',
+    [DashboardController::class, 'index']
+)->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';

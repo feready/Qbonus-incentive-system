@@ -27,6 +27,7 @@ class BonusSubmission extends Model
         'appeal_reason',
         'decided_by',
         'decided_at',
+        'master_file_version_id',
     ];
 
     protected function casts(): array
@@ -37,8 +38,13 @@ class BonusSubmission extends Model
             'results' => 'array',
             'decided_at' => 'datetime',
         ];
-    }
 
+        
+    }
+public function masterFileVersion(): BelongsTo
+{
+    return $this->belongsTo(MasterFileVersion::class);
+}
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use RuntimeException;
 
 class AdminSeeder extends Seeder
@@ -20,16 +19,20 @@ class AdminSeeder extends Seeder
             );
         }
 
-        User::updateOrCreate(
+        $user = User::updateOrCreate(
             ['email' => $email],
             [
                 'name' => config(
                     'qbonus.admin.name',
                     'Super Administrator'
                 ),
-                'password' => Hash::make($password),
+                'password' => $password,
                 'email_verified_at' => now(),
             ]
         );
+
+        // Tetapkan role Super Admin.
+        $user->role = User::ROLE_SUPER_ADMIN;
+        $user->save();
     }
 }

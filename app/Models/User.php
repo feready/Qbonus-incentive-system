@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -15,18 +14,34 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * Get the attributes that should be cast.
-     */
+    public const ROLE_SUPER_ADMIN = 'SUPER_ADMIN';
+
+    public const ROLE_USER = 'USER';
+
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Memeriksa apakah pengguna adalah Super Admin.
+     */
+    public function isSuperAdmin(): bool
+    {
+        return $this->role === self::ROLE_SUPER_ADMIN;
+    }
+
+    /**
+     * Memeriksa apakah pengguna adalah User biasa.
+     */
+    public function isRegularUser(): bool
+    {
+        return $this->role === self::ROLE_USER;
     }
 
     /**

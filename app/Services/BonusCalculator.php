@@ -17,9 +17,17 @@ class BonusCalculator
         private ReferenceWorkbookService $reference
     ) {}
 
+    /**
+     * Memakai instance referensi yang sama dengan UploadController.
+     */
+    public function useReferenceWorkbook(
+        ReferenceWorkbookService $reference
+    ): void {
+        $this->reference = $reference;
+    }
+
     public function calculate(array $row): array
     {
-        // Ambil enam achievement dari workbook referensi
         $achievements = $this->reference->getKpiValues(
             $row['Bln'],
             $row['Code'],
@@ -34,7 +42,6 @@ class BonusCalculator
         $row['Ach AWT'] = $achievements['ach_awt'];
         $row['Ach NEMS'] = $achievements['ach_nems'];
 
-        // Hitung KPI berbobot
         $kpi = [];
 
         foreach ($this->weights as $achievement => $weight) {
@@ -46,7 +53,6 @@ class BonusCalculator
 
         $totalKpi = array_sum($kpi);
 
-        // Tentukan tier berdasarkan Ach Zona
         $achZona = (float) $row['Ach Zona'];
 
         if ($achZona >= 1.10) {
@@ -59,27 +65,27 @@ class BonusCalculator
             $tier = '>0%';
         }
 
-        // Ambil Insentif Basic berdasarkan Code + Tier
         $basic = $this->reference->getInsentifBasic(
             $row['Code'],
             $tier
         );
 
-        // Hitung Insentif Basic x KPI
         $basicKpi = $basic * $totalKpi;
 
-        // Hitung Final Insentif
         $usia = (float) $row['Usia'];
+
         $final = $usia < 90 ? 0 : $basicKpi;
 
         return [
             ...$achievements,
+
             'KPI Zona' => $kpi['KPI Zona'],
             'KPI Cat' => $kpi['KPI Cat'],
             'KPI PB' => $kpi['KPI PB'],
             'KPI DSL' => $kpi['KPI DSL'],
             'KPI AWT' => $kpi['KPI AWT'],
             'KPI NEMS' => $kpi['KPI NEMS'],
+
             'Total KPI' => $totalKpi,
             'Tier Ach' => $tier,
             'Insentif Basic' => $basic,
