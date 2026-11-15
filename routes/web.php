@@ -14,11 +14,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\MasterFileController;
 
 // PUBLIC ROUTES
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::redirect('/', '/login')->name('home');
 // SUPER ADMIN ROUTES
 
 Route::middleware(['auth', 'superadmin'])
